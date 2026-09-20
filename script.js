@@ -8,32 +8,93 @@ const octal = document.getElementById("octal");
 const hexadecimal = document.getElementById("hexadecimal");
 const erro = document.getElementById("erro");
 
-converter.addEventListener("click", () => {
-  const valor = numero.value.trim();
-  const baseOrigem = Number(base.value);
+function obterPadrao(base) {
+    switch (base) {
+        case 2:
+            return /^-?[01]+$/;
+        case 8:
+            return /^-?[0-7]+$/;
+        case 10:
+            return /^-?[0-9]+$/;
+        case 16:
+            return /^-?[0-9a-fA-F]+$/;
+        default:
+            return null;
+    }
+}
 
-  erro.textContent = "";
+function converterParaDecimal(valor, baseOrigem) {
+    const negativo = valor.startsWith("-");
+    const numeroLimpo = negativo ? valor.slice(1) : valor;
 
-  if (!valor) {
-    erro.textContent = "Digite um número.";
-    return;
-  }
+    let resultado = 0n;
 
-  const valorDecimal = parseInt(valor, baseOrigem);
+    for (const caractere of numeroLimpo.toUpperCase()) {
+        const digito = parseInt(caractere, 16);
 
-  if (Number.isNaN(valorDecimal)) {
-    erro.textContent = "Número inválido para a base selecionada.";
-    return;
-  }
+        if (digito >= baseOrigem) {
+            return null;
+        }
 
-  decimal.textContent = valorDecimal.toString(10);
-  binario.textContent = valorDecimal.toString(2);
-  octal.textContent = valorDecimal.toString(8);
-  hexadecimal.textContent = valorDecimal.toString(16).toUpperCase();
-});
+        resultado = resultado * BigInt(baseOrigem) + BigInt(digito);
+    }
+
+    return negativo ? -resultado : resultado;
+}
+
+function exibirResultados(valorDecimal) {
+    decimal.textContent = valorDecimal.toString(10);
+    binario.textContent = valorDecimal.toString(2);
+    octal.textContent = valorDecimal.toString(8);
+    hexadecimal.textContent = valorDecimal.toString(16).toUpperCase();
+}
+
+function limparResultados() {
+    decimal.textContent = "—";
+    binario.textContent = "—";
+    octal.textContent = "—";
+    hexadecimal.textContent = "—";
+}
+
+function realizarConversao() {
+    const valor = numero.value.trim();
+    const baseOrigem = Number(base.value);
+
+    erro.textContent = "";
+
+    if (!valor) {
+        limparResultados();
+        erro.textContent = "Digite um número para continuar.";
+        return;
+    }
+
+    const padrao = obterPadrao(baseOrigem);
+
+    if (!padrao.test(valor)) {
+        limparResultados();
+        erro.textContent = "O valor informado não pertence à base selecionada.";
+        return;
+    }
+
+    const valorDecimal = converterParaDecimal(valor, baseOrigem);
+
+    if (valorDecimal === null) {
+        limparResultados();
+        erro.textContent = "Não foi possível realizar a conversão.";
+        return;
+    }
+
+    exibirResultados(valorDecimal);
+}
+
+converter.addEventListener("click", realizarConversao);
 
 numero.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    converter.click();
-  }
+    if (event.key === "Enter") {
+        realizarConversao();
+    }
+});
+
+numero.addEventListener("input", () => {
+    erro.textContent = "";
 });
