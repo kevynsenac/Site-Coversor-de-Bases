@@ -64,7 +64,6 @@ function realizarConversao() {
 
     if (!valor) {
         limparResultados();
-        erro.textContent = "Digite um número para continuar.";
         return;
     }
 
@@ -89,12 +88,12 @@ function realizarConversao() {
 
 converter.addEventListener("click", realizarConversao);
 
+numero.addEventListener("input", realizarConversao);
+
 numero.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         realizarConversao();
     }
 });
 
-numero.addEventListener("input", () => {
-    erro.textContent = "";
-});
+base.addEventListener("change", realizarConversao);
