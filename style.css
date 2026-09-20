@@ -289,14 +289,30 @@ button:active {
 
 output {
     display: block;
-    overflow: hidden;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
     color: var(--neon);
     font-family: "Courier New", monospace;
     font-size: 16px;
     font-weight: bold;
-    text-overflow: ellipsis;
     text-shadow: 0 0 10px rgba(0, 245, 212, 0.3);
     white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: var(--neon) transparent;
+}
+
+output::-webkit-scrollbar {
+    height: 4px;
+}
+
+output::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+output::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--neon);
 }
 
 #erro {
