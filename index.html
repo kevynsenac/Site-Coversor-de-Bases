@@ -1,249 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Conversor de números entre bases binária, octal, decimal e hexadecimal.">
-    <title>Base Converter</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Conversor de números entre bases binária, octal, decimal e hexadecimal."
+    />
+    <title>Conversor de Bases</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
-</head>
-<body>
-    <div class="background-grid"></div>
-    <div class="glow glow-one"></div>
-    <div class="glow glow-two"></div>
-
+  </head>
+  <body>
     <main class="container">
-        <header class="header">
-            <div class="logo">
-                <span class="logo-symbol">&gt;_</span>
-            </div>
-
-            <div>
-                <span class="eyebrow">NUMBER SYSTEM</span>
-                <h1>Base Converter</h1>
-            </div>
-        </header>
-
-        <p class="subtitle">
-            Converta números entre os sistemas binário, octal,
-            decimal e hexadecimal.
+      <header class="header">
+        <div class="brand-mark">01</div>
+        <div>
+          <p class="eyebrow">CONVERSOR NUMÉRICO</p>
+          <h1>Conversor de Bases</h1>
+        </div>
+      </header>
+      <p class="subtitle">
+        Converta números entre binário, octal, decimal e hexadecimal.
+      </p>
+      <section class="converter">
+        <div class="form-grid">
+          <div class="field">
+            <label for="numero">Número</label
+            ><input
+              type="text"
+              id="numero"
+              placeholder="Digite um número"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div class="field">
+            <label for="base">Base de origem</label
+            ><select id="base">
+              <option value="2">Binário — Base 2</option>
+              <option value="8">Octal — Base 8</option>
+              <option value="10" selected>Decimal — Base 10</option>
+              <option value="16">Hexadecimal — Base 16</option>
+            </select>
+          </div>
+        </div>
+        <div class="results">
+          <article class="result">
+            <div class="result-label"><span>10</span>Decimal</div>
+            <output id="decimal">—</output>
+          </article>
+          <article class="result">
+            <div class="result-label"><span>01</span>Binário</div>
+            <output id="binario">—</output>
+          </article>
+          <article class="result">
+            <div class="result-label"><span>08</span>Octal</div>
+            <output id="octal">—</output>
+          </article>
+          <article class="result">
+            <div class="result-label"><span>AF</span>Hexadecimal</div>
+            <output id="hexadecimal">—</output>
+          </article>
+        </div>
+        <p id="erro" role="alert"></p>
+      </section>
+      <section class="documentation">
+        <div class="section-title">
+          <span>01</span>
+          <div>
+            <p class="eyebrow">REFERÊNCIA</p>
+            <h2>Sistemas de numeração</h2>
+          </div>
+        </div>
+        <p class="description">
+          O valor informado é interpretado na base selecionada e convertido para
+          as quatro representações disponíveis.
         </p>
-
-        <section class="converter-card">
-            <div class="input-group">
-                <label for="numero">Número</label>
-
-                <div class="input-wrapper">
-                    <span class="input-prefix">&gt;</span>
-                    <input
-                        type="text"
-                        id="numero"
-                        placeholder="Digite um número"
-                        autocomplete="off"
-                        spellcheck="false"
-                    >
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="base">Base de origem</label>
-
-                <select id="base">
-                    <option value="2">Binário · Base 2</option>
-                    <option value="8">Octal · Base 8</option>
-                    <option value="10" selected>Decimal · Base 10</option>
-                    <option value="16">Hexadecimal · Base 16</option>
-                </select>
-            </div>
-
-            <button id="converter">
-                <span>Converter</span>
-                <span class="button-arrow">→</span>
-            </button>
-
-            <div class="results">
-                <div class="result-card">
-                    <div class="result-header">
-                        <span class="result-icon">10</span>
-                        <span>Decimal</span>
-                    </div>
-                    <output id="decimal">—</output>
-                </div>
-
-                <div class="result-card">
-                    <div class="result-header">
-                        <span class="result-icon">01</span>
-                        <span>Binário</span>
-                    </div>
-                    <output id="binario">—</output>
-                </div>
-
-                <div class="result-card">
-                    <div class="result-header">
-                        <span class="result-icon">08</span>
-                        <span>Octal</span>
-                    </div>
-                    <output id="octal">—</output>
-                </div>
-
-                <div class="result-card">
-                    <div class="result-header">
-                        <span class="result-icon">AF</span>
-                        <span>Hexadecimal</span>
-                    </div>
-                    <output id="hexadecimal">—</output>
-                </div>
-            </div>
-
-            <p id="erro"></p>
-        </section>
-
-        <section class="documentation">
-            <div class="section-heading">
-                <span class="section-number">01</span>
-
-                <div>
-                    <span class="eyebrow">DOCUMENTAÇÃO</span>
-                    <h2>Como funciona?</h2>
-                </div>
-            </div>
-
-            <p class="description">
-                Todo número pode ser representado utilizando diferentes
-                sistemas de numeração. O conversor interpreta o valor na
-                base selecionada e gera sua representação equivalente
-                nas outras bases.
+        <div class="base-grid">
+          <article class="base-card">
+            <span class="base-id">01</span>
+            <h3>Binário</h3>
+            <strong>Base 2</strong>
+            <p>
+              Utiliza apenas os dígitos 0 e 1 e é amplamente utilizado em
+              sistemas computacionais.
             </p>
-
-            <div class="base-grid">
-                <article class="base-card">
-                    <span class="base-number">01</span>
-                    <h3>Binário</h3>
-                    <span class="base-value">Base 2</span>
-                    <p>
-                        Utiliza apenas os dígitos <strong>0</strong> e
-                        <strong>1</strong>. É amplamente utilizado em
-                        sistemas computacionais.
-                    </p>
-                </article>
-
-                <article class="base-card">
-                    <span class="base-number">02</span>
-                    <h3>Octal</h3>
-                    <span class="base-value">Base 8</span>
-                    <p>
-                        Utiliza os dígitos de <strong>0</strong> a
-                        <strong>7</strong> e possui relação direta com
-                        grupos de três bits.
-                    </p>
-                </article>
-
-                <article class="base-card">
-                    <span class="base-number">03</span>
-                    <h3>Decimal</h3>
-                    <span class="base-value">Base 10</span>
-                    <p>
-                        É o sistema numérico utilizado no cotidiano,
-                        utilizando os dígitos de <strong>0</strong> a
-                        <strong>9</strong>.
-                    </p>
-                </article>
-
-                <article class="base-card">
-                    <span class="base-number">04</span>
-                    <h3>Hexadecimal</h3>
-                    <span class="base-value">Base 16</span>
-                    <p>
-                        Utiliza os dígitos de <strong>0</strong> a
-                        <strong>9</strong> e as letras de
-                        <strong>A</strong> a <strong>F</strong>.
-                    </p>
-                </article>
+          </article>
+          <article class="base-card">
+            <span class="base-id">02</span>
+            <h3>Octal</h3>
+            <strong>Base 8</strong>
+            <p>
+              Utiliza os dígitos de 0 a 7 e possui relação direta com grupos de
+              três bits.
+            </p>
+          </article>
+          <article class="base-card">
+            <span class="base-id">03</span>
+            <h3>Decimal</h3>
+            <strong>Base 10</strong>
+            <p>
+              É o sistema numérico utilizado no cotidiano, com dígitos de 0 a 9.
+            </p>
+          </article>
+          <article class="base-card">
+            <span class="base-id">04</span>
+            <h3>Hexadecimal</h3>
+            <strong>Base 16</strong>
+            <p>Utiliza os dígitos de 0 a 9 e as letras de A a F.</p>
+          </article>
+        </div>
+        <div class="logic">
+          <div class="section-title">
+            <span>02</span>
+            <div>
+              <p class="eyebrow">PROCESSO</p>
+              <h2>Lógica da conversão</h2>
             </div>
-
-            <div class="logic-section">
-                <div class="section-heading compact">
-                    <span class="section-number">02</span>
-
-                    <div>
-                        <span class="eyebrow">PROCESSAMENTO</span>
-                        <h2>Lógica da conversão</h2>
-                    </div>
-                </div>
-
-                <div class="flow">
-                    <div class="flow-step">
-                        <span>01</span>
-                        <div>
-                            <strong>Entrada</strong>
-                            <p>O usuário informa o número e sua base.</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-line"></div>
-
-                    <div class="flow-step">
-                        <span>02</span>
-                        <div>
-                            <strong>Interpretação</strong>
-                            <p>O JavaScript interpreta cada dígito de acordo com a base selecionada.</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-line"></div>
-
-                    <div class="flow-step">
-                        <span>03</span>
-                        <div>
-                            <strong>Conversão</strong>
-                            <p>O valor é transformado em sua representação nas quatro bases.</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-line"></div>
-
-                    <div class="flow-step">
-                        <span>04</span>
-                        <div>
-                            <strong>Resultado</strong>
-                            <p>Os valores convertidos são exibidos individualmente na interface.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="code-section">
-                <div class="code-heading">
-                    <span class="terminal-dot"></span>
-                    <span>javascript</span>
-                </div>
-
-                <pre><code>valorDecimal.toString(2)
+          </div>
+          <ol class="steps">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Entrada</strong>
+                <p>O usuário informa o número e sua base.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Interpretação</strong>
+                <p>
+                  O JavaScript valida e interpreta os dígitos de acordo com a
+                  base.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Conversão</strong>
+                <p>
+                  O valor é transformado em sua representação nas quatro bases.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <strong>Resultado</strong>
+                <p>Os valores convertidos são exibidos individualmente.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <div class="code-card">
+          <div class="code-header">
+            <span class="status-dot"></span><span>JAVASCRIPT</span>
+          </div>
+          <pre><code>valorDecimal.toString(2)
 valorDecimal.toString(8)
 valorDecimal.toString(10)
 valorDecimal.toString(16)</code></pre>
-
-                <p>
-                    O método <code>toString()</code> recebe a base desejada
-                    e retorna uma representação do número naquele sistema.
-                    Para hexadecimal, o resultado é convertido para letras
-                    maiúsculas.
-                </p>
-            </div>
-
-            <div class="tech-list">
-                <span>HTML5</span>
-                <span>CSS3</span>
-                <span>JavaScript</span>
-                <span>Sem frameworks</span>
-            </div>
-        </section>
-
-        <footer>
-            <span>BASE CONVERTER</span>
-            <span>PURE HTML · CSS · JS</span>
-        </footer>
+          <p>
+            O método <code>toString()</code> recebe a base desejada e retorna a
+            representação correspondente.
+          </p>
+        </div>
+        <div class="tech-list">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span
+          ><span>Sem frameworks</span>
+        </div>
+      </section>
+      <footer>
+        <span>CONVERSOR DE BASES</span><span>HTML · CSS · JAVASCRIPT</span>
+      </footer>
     </main>
-</body>
+  </body>
 </html>

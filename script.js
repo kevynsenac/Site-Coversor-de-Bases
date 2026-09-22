@@ -1,6 +1,5 @@
 const numero = document.getElementById("numero");
 const base = document.getElementById("base");
-const converter = document.getElementById("converter");
 
 const decimal = document.getElementById("decimal");
 const binario = document.getElementById("binario");
@@ -8,47 +7,49 @@ const octal = document.getElementById("octal");
 const hexadecimal = document.getElementById("hexadecimal");
 const erro = document.getElementById("erro");
 
-function obterPadrao(base) {
-    switch (base) {
-        case 2:
-            return /^-?[01]+$/;
-        case 8:
-            return /^-?[0-7]+$/;
-        case 10:
-            return /^-?[0-9]+$/;
-        case 16:
-            return /^-?[0-9a-fA-F]+$/;
-        default:
-            return null;
-    }
+// Define quais caracteres são aceitos em cada base.
+function obterPadrao(baseNumerica) {
+    const padroes = {
+        2: /^-?[01]+$/,
+        8: /^-?[0-7]+$/,
+        10: /^-?[0-9]+$/,
+        16: /^-?[0-9a-fA-F]+$/
+    };
+
+    return padroes[baseNumerica] ?? null;
 }
 
+// Converte o valor informado para BigInt decimal.
+// BigInt permite trabalhar com números inteiros maiores
+// que o limite seguro do tipo Number.
 function converterParaDecimal(valor, baseOrigem) {
     const negativo = valor.startsWith("-");
-    const numeroLimpo = negativo ? valor.slice(1) : valor;
+    const digitos = negativo ? valor.slice(1) : valor;
 
     let resultado = 0n;
 
-    for (const caractere of numeroLimpo.toUpperCase()) {
+    for (const caractere of digitos.toUpperCase()) {
         const digito = parseInt(caractere, 16);
 
-        if (digito >= baseOrigem) {
-            return null;
-        }
-
-        resultado = resultado * BigInt(baseOrigem) + BigInt(digito);
+        resultado =
+            resultado * BigInt(baseOrigem) +
+            BigInt(digito);
     }
 
     return negativo ? -resultado : resultado;
 }
 
+// Atualiza os quatro resultados usando o mesmo valor decimal.
 function exibirResultados(valorDecimal) {
     decimal.textContent = valorDecimal.toString(10);
     binario.textContent = valorDecimal.toString(2);
     octal.textContent = valorDecimal.toString(8);
-    hexadecimal.textContent = valorDecimal.toString(16).toUpperCase();
+    hexadecimal.textContent = valorDecimal
+        .toString(16)
+        .toUpperCase();
 }
 
+// Limpa os resultados quando a entrada está vazia ou inválida.
 function limparResultados() {
     decimal.textContent = "—";
     binario.textContent = "—";
@@ -56,12 +57,15 @@ function limparResultados() {
     hexadecimal.textContent = "—";
 }
 
+// Realiza a conversão automaticamente sempre que
+// o usuário altera o número ou a base.
 function realizarConversao() {
     const valor = numero.value.trim();
     const baseOrigem = Number(base.value);
 
     erro.textContent = "";
 
+    // Sem valor: apenas limpa os resultados.
     if (!valor) {
         limparResultados();
         return;
@@ -69,31 +73,21 @@ function realizarConversao() {
 
     const padrao = obterPadrao(baseOrigem);
 
-    if (!padrao.test(valor)) {
+    // Verifica se os caracteres pertencem à base selecionada.
+    if (!padrao || !padrao.test(valor)) {
         limparResultados();
-        erro.textContent = "O valor informado não pertence à base selecionada.";
+        erro.textContent =
+            "O valor informado não pertence à base selecionada.";
         return;
     }
 
     const valorDecimal = converterParaDecimal(valor, baseOrigem);
 
-    if (valorDecimal === null) {
-        limparResultados();
-        erro.textContent = "Não foi possível realizar a conversão.";
-        return;
-    }
-
     exibirResultados(valorDecimal);
 }
 
-converter.addEventListener("click", realizarConversao);
-
+// A conversão acontece enquanto o usuário digita.
 numero.addEventListener("input", realizarConversao);
 
-numero.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        realizarConversao();
-    }
-});
-
+// Também atualiza os resultados quando a base é alterada.
 base.addEventListener("change", realizarConversao);
